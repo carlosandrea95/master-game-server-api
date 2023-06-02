@@ -22,7 +22,21 @@ router.post('/servers', async (req, res) => {
     res.status(500).json({ message: 'Error al añadir el servidor', error })
   }
 })
+// Ruta para obtener servidores por categoría
+router.get('/servers/category/:category', async (req, res) => {
+  try {
+    const category = req.params.category
 
+    // Filtrar los servidores por la categoría especificada
+    const servers = await Servers.find({ category })
+
+    res.status(200).json(servers)
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Error al obtener los servidores por categoría', error })
+  }
+})
 // Ruta para mostrar la lista de servidores
 router.get('/servers', async (req, res) => {
   try {
